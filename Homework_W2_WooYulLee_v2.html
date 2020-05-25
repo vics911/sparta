@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <title>Online-Shopping Mall</title>
+    <style>
+        * {
+            font-family: 'Poor Story', cursive;
+        }
+
+        .image {
+            margin: auto;
+            width: 800px;
+            height: 400px;
+            size: cover;
+            border-radius: 10px;
+            padding-top: 10px;
+        }
+
+        .product {
+            margin: auto;
+            width: 800px;
+            padding-top: 20px;
+        }
+
+        .fx_exchange {
+            margin: auto;
+            width: 800px;
+            padding-top: 20px;
+        }
+
+        .input-group {
+            margin: auto;
+            width: 800px;
+            border-radius: 10px;
+            padding-top: 10px;
+        }
+
+        .button {
+            margin: auto;
+            width: 10%;
+            padding-top: 10px;
+        }
+    </style>
+
+    <script>
+        function order() {
+            let name = $("#input_name").val()
+            let quant = $("#select_quant option:selected").val()
+            let add = $("#input_add").val()
+            let phone = $("#input_phone").val()
+            if (name == "") {
+                alert("Please eneter your name")
+            }
+            else if (quant == "choose") {
+                alert("Please choose a quantity.")
+            }
+            else if (add == "") {
+                alert("Please enter your address.")
+            }
+            else if (phone == "") {
+                alert("Please choose your phone number.")
+            }
+            else {
+                alert('Your order is complete👏');
+            }
+        }
+
+        $.ajax({
+            type: "GET",
+            url: "https://api.manana.kr/exchange/rate.json",
+            data: {},
+            success: function (response) {
+                for (let i = 0; i < response.length; i++) {
+                    if (response[i]['name'] == 'USDKRW=X') {
+                        $('#exchange').text(response[i]['rate']);
+                        return
+                    }
+                }
+
+            }
+        });
+
+    </script>
+
+</head>
+
+<body>
+    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+    <div class="image">
+        <img class="image"
+            src="https://cdn.shopify.com/s/files/1/0018/4211/8765/products/upper_lower_suspense_2048x.jpg?v=1567186615">
+    </div>
+    <div class="product">
+        <h2>Product: ZERO-G WEIGHT REDUCING BACKPACK</h2>
+        <h4>Price:$268</h4>
+        <p>ZERO-G | WORLD'S FIRST WEIGHT-REDUCING BACKPACK
+            Patented Strap to reduce weight on Shoulder and Back by 25%
+            A “WOW” Sleek and Minimalist design to meet any lifestyle
+            Made with Premium grade materials: PU leather, German made buckles, 3 Matrix interior and more</p>
+    </div>
+    <div class="fx_exchange">
+        <h4> USD/KRW =
+            <span id="exchange"></span>
+        </h4>
+        <h2>Order</h2>
+    </div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+            id="input_name">
+    </div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Quantity</label>
+        </div>
+        <select class="custom-select" id="select_quant">
+            <option selected>choose</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Address</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+            id="input_add">
+    </div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Phone Number</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+            id="input_phone">
+    </div>
+    </div>
+    </div>
+    <div class="button">
+        <button onclick="order()" type="button" class="btn btn-dark-primary btn-lg">Order</button>
+    </div>
+</body>
+
+</html>
